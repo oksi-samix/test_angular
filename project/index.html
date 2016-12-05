@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html ng-app="testTask">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="./stylesheets/screen.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+    <script src="app.js"></script>
+</head>
+<body>
+<div class="wrapper flex">
+    <aside class="sidebar">
+        <h2 class="title">Main</h2>
+        <nav class="sidebar__menu">
+            <a href="#">
+                Overview
+            </a>
+        </nav>
+    </aside>
+    <main class="content flex" ng-controller="Items as ilc">
+        <section class="content__left">
+            <div class="items">
+                <h2 class="title items__title">Items</h2>
+                <form class="items__form flex">
+                    <input type="text" ng-model='ilc.newItem.name' ng-model-options="{ updateOn: 'blur' }"
+                           placeholder="Type name here">
+                    <button ng-click="ilc.addToItems($event, ilc.items, ilc.newItem)" class="button button__form">Add
+                        item
+                    </button>
+                </form>
+                <ul class="list">
+                    <li ng-repeat="item in ilc.items" class="list__item" ng-click="ilc.setCurrentItem(item)"
+                        ng-class="item.id === ilc.currentItem.id ? 'active' : ''">
+                        <p>{{item.name}}</p>
+                        <span class="list__comments">{{item.commentNumber}}</span>
+                        <button ng-click="ilc.deleteItem(item)" class="button button__delete">Delete</button>
+                    </li>
+                </ul>
+            </div>
+        </section>
+        <section class="content__right">
+            <div class="items flex items_right">
+                <h2 class="title items__title items__title_right">Comments #{{ilc.currentItem.id}}</h2>
+                <div class="items__holder">
+                    <ul class="comments">
+                        <li class="comments__item flex"
+                            ng-repeat="comments in ilc.currentItem.comments  track by $index">
+                            <div class="comments__image" ng-class="$odd ? 'blue' : 'orange' "></div>
+                            <p>{{comments.text}}</p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="flex comments__form">
+                    <div class="comments__image"></div>
+                    <input type="text" palceholder="Enter your comment" ng-model='ilc.newComment.text'
+                           ng-blur="ilc.addNewComment($event)">
+                </div>
+            </div>
+        </section>
+        <button ng-click="ilc.save()">save</button>
+    </main>
+
+</div>
+</body>
+</html>
