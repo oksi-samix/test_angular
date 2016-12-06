@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="./stylesheets/screen.css">
+
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.6/ngStorage.min.js"></script>
+
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
     <script src="app.js"></script>
 </head>
@@ -23,7 +26,7 @@
             <div class="items">
                 <h2 class="title items__title">Items</h2>
                 <form class="items__form flex">
-                    <input type="text" ng-model='ilc.newItem.name' ng-model-options="{ updateOn: 'blur' }"
+                    <input type="text" ng-model='ilc.newItem.name'
                            placeholder="Type name here">
                     <button ng-click="ilc.addToItems($event, ilc.items, ilc.newItem)" class="button button__form">Add
                         item

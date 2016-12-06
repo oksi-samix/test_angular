@@ -1,8 +1,8 @@
 // Code goes here
 
-var testTaskApp = angular.module('testTask', []);
+var testTaskApp = angular.module('testTask', ['ngStorage']);
 
-testTaskApp.controller('Items', function ItemListController() {
+testTaskApp.controller('Items', function ItemListController($localStorage) {
   var ilc = this;
   ilc.items = [];
   var initial = [{
@@ -31,28 +31,28 @@ testTaskApp.controller('Items', function ItemListController() {
   }];
 
   ilc.$onInit = function () {
-    ilc.items = JSON.parse(localStorage.getItem('items')) || initial;
+    ilc.items = $localStorage.items || initial;
     ilc.currentItem = ilc.items[0];
   };
 
 
-    ilc.newItem = {
-      name: '',
-      commentNumber: 0,
-      id:ilc.items.length + 1,
-      comments:[]
-     };
+  ilc.newItem = {
+    name: '',
+    commentNumber: 0,
+    id:ilc.items.length + 1,
+    comments:[]
+   };
+
   ilc.newComment = {
     text: '',
   };
-
-
 
   ilc.addToItems = function (e, arr, newArr) {
     e.preventDefault;
     ilc.getId();
     arr.push(angular.copy(newArr));
     ilc.save();
+    ilc.newItem.name = '';
   };
   ilc.deleteItem = function (item) {
     var index = ilc.items.indexOf(item);
@@ -67,6 +67,7 @@ testTaskApp.controller('Items', function ItemListController() {
     ilc.currentItem.comments.push(angular.copy(ilc.newComment));
     ilc.currentItem.commentNumber += 1;
     ilc.save();
+    ilc.newComment.text = '';
   };
   ilc.getId = function (){
     var newId =  ilc.items.length;
@@ -76,6 +77,8 @@ testTaskApp.controller('Items', function ItemListController() {
   };
 
   ilc.save = function(){
-    localStorage.setItem('items', JSON.stringify(ilc.items));
+    // localStorage.setItem('items', JSON.stringify(ilc.items));
+    $localStorage.items = ilc.items
   }
 });
+

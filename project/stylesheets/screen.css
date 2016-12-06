@@ -69,7 +69,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
 
 /* line 8, ../sass/screen.scss */
 html, body, .wrapper {
-  height: 100%;
+  min-height: 100vh;
 }
 
 /* line 11, ../sass/screen.scss */
@@ -171,7 +171,7 @@ input {
 .content {
   flex: 1;
   background-color: #f9f9f9;
-  padding: 37px 23px 0 34px;
+  padding: 37px 23px 37px 34px;
 }
 /* line 87, ../sass/screen.scss */
 .content__left {
